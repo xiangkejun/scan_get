@@ -17,7 +17,7 @@
 
 struct scan_data
 {
- // std::string  frame_id;
+ // std::string  frame_id;   //会出现段错误
    char frame_id;
   float angle_min;       
   float angle_max;        
