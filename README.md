@@ -1,5 +1,5 @@
 # scan_get
-rosrun scan_get scan_get
+
 
 rosrun scan_get scan_cli
 
