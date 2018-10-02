@@ -40,13 +40,6 @@ struct sockaddr_in ser_addr;
 ; 
   //   std::cout<<scan->angle_min << scan->angle_max<< std::endl;
 
-  //  std::cout<<scan_data_buf_angle_min << scan_data_buf_angle_max<< std::endl;
-
-
-//  // udp_msg_sender(client_fd, (struct sockaddr*)&ser_addr);
- //   sendto(client_fd, (char *)&scan_data_buf, sizeof(scan_data_buf)+1,0,(struct sockaddr*)&ser_addr,sizeof(ser_addr));
-//     cout << scan_data_buf.angle_increment<<endl;
-//  // cout<< scan->angle_increment<< endl;
 //  // ROS_INFO("I heard: [%s]", msg->data.c_str());
 //  sleep(1);
  }
@@ -68,7 +61,6 @@ void *scan_get( void *arg )
   //  close(client_fd);
   while(ros::ok())
       {
-     //   std::cout<<".....pppppppppppppppppppppppppppppppp..."<<scan_data_buf_angle_min << std::endl;
         std::cout<<".....pppppppppppppppppppppppppppppppp..."<<scan_data_buf.angle_min ;
         std::cout<<"   "<<scan_data_buf.angle_max<< "  "<< scan_data_buf.scan_time<<std::endl;
   sendto(client_fd, (char *)&scan_data_buf, sizeof(scan_data_buf)+1,0,(struct sockaddr*)&ser_addr,sizeof(ser_addr));
