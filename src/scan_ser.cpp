@@ -17,53 +17,29 @@
 
 struct scan_data
 {
-
-//char  frame_id[10];
-float   angle_min;       
- float angle_max;        
- float angle_increment;  
- float time_increment;                                                  
- float scan_time;       
+  std::string  frame_id;
+//   char frame_id;
+  float angle_min;       
+  float angle_max;        
+  float angle_increment;  
+  float time_increment;                                                  
+  float scan_time;       
   float range_min;      
- float range_max; 
+  float range_max; 
 };
 
 
-#define BUFF_LEN 1000
-
-// void handle_udp_msg(int fd)
-// {
-//     char buf[BUFF_LEN];  //接收缓冲区，1024字节
-//     socklen_t len;
-//     int count;
-//     struct sockaddr_in clent_addr;  //clent_addr用于记录发送方的地址信息
-//     while(1)
-//     {
-//         memset(buf, 0, BUFF_LEN);
-//         len = sizeof(clent_addr);
-//         count = recvfrom(fd, buf, BUFF_LEN, 0, (struct sockaddr*)&clent_addr, &len);  //recvfrom是拥塞函数，没有数据就一直拥塞
-//         if(count == -1)
-//         {
-//             printf("recieve data fail!\n");
-//             return;
-//         }
-//         printf("client:%s\n",buf);  //打印client发过来的信息
-//         memset(buf, 0, BUFF_LEN);
-//         sprintf(buf, "I have recieved %d bytes data!\n", count);  //回复client
-//         printf("server:%s\n",buf);  //打印自己发送的信息给
-//        // sendto(fd, buf, BUFF_LEN, 0, (struct sockaddr*)&clent_addr, len);  //发送信息给client，注意使用了clent_addr结构体指针
-
-//     }
-// }
+#define BUFF_LEN 1024
 
 void handle_udp_msg(int fd)
 {
     char buf[BUFF_LEN] = {0};  //接收缓冲区，1024字节
+   // std::string buf;
     socklen_t len;
     int count;
     struct sockaddr_in clent_addr;  //clent_addr用于记录发送方的地址信息
     while(ros::ok())
-   // while(1)
+  //  while(1)
     {
       //  memset(buf, 0, BUFF_LEN);
         len = sizeof(clent_addr);
@@ -79,8 +55,8 @@ void handle_udp_msg(int fd)
      
        struct scan_data scan_data_buf;
         memcpy(&scan_data_buf,buf,sizeof(scan_data_buf)+1);
-
-        std::cout<< "scan_data_buf:   "  <<scan_data_buf.angle_min<<"  "<<scan_data_buf.angle_max<<"   "<<scan_data_buf.scan_time<< std::endl;
+       std::cout<<"scan_data_buf:   "<<scan_data_buf.frame_id;
+        std::cout<<scan_data_buf.angle_min<<"  "<<scan_data_buf.angle_max<<"   "<<scan_data_buf.scan_time<< std::endl;
 
        // memset(buf, 0, BUFF_LEN);
        // sprintf(buf, "I have recieved %d bytes data!\n", count);  //回复client
