@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(laser_transfer)
+project(scan_get)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
  add_compile_options(-std=c++11)
@@ -122,7 +122,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/laser_transfer.cpp
+#   src/${PROJECT_NAME}/scan_get.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -133,7 +133,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/laser_transfer_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/scan_get_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -190,7 +190,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_laser_transfer.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_scan_get.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
@@ -233,6 +233,5 @@ target_link_libraries(scan_cli ${catkin_LIBRARIES})
 add_executable(scan_ser src/scan_ser.cpp)
 target_link_libraries(scan_ser ${catkin_LIBRARIES})
 
-add_executable(scan_get src/scan_get.cpp)
-target_link_libraries(scan_get ${catkin_LIBRARIES})
+
 
