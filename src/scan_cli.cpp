@@ -18,15 +18,14 @@
 
 extern struct scan_data scan_data_buf;
 
-
 int client_fd;
 struct sockaddr_in ser_addr;
 #define SERVER_PORT 8888
-
  void scan_callback(const sensor_msgs::LaserScan::ConstPtr& scan )
  {
-  //   scan_data_buf_frame_id = scan ->header.frame_id;
-  //     scan_data_buf.frame_id = "hokuyo";
+   //  scan_data_buf.frame_id = 65;  //'A'
+
+       scan_data_buf.frame_id = scan->header.frame_id;
 
       scan_data_buf.angle_min = scan ->angle_min;
       scan_data_buf.angle_max = scan ->angle_max;
@@ -61,10 +60,12 @@ void *scan_get( void *arg )
   //  close(client_fd);
   while(ros::ok())
       {
-        std::cout<<".....pppppppppppppppppppppppppppppppp..."<<scan_data_buf.angle_min ;
+        std::cout<<".....pppppppppppppppp..."<<scan_data_buf.frame_id<<"  "<<scan_data_buf.angle_min ;
         std::cout<<"   "<<scan_data_buf.angle_max<< "  "<< scan_data_buf.scan_time<<std::endl;
-  sendto(client_fd, (char *)&scan_data_buf, sizeof(scan_data_buf)+1,0,(struct sockaddr*)&ser_addr,sizeof(ser_addr));
+ // sendto(client_fd, (char *)&scan_data_buf, sizeof(scan_data_buf)+1,0,(struct sockaddr*)&ser_addr,sizeof(ser_addr));
+  sendto(client_fd, (std::string *)&scan_data_buf, sizeof(scan_data_buf)+1,0,(struct sockaddr*)&ser_addr,sizeof(ser_addr));
 
+      std::cout<<"sizeof"<< sizeof(scan_data_buf)+1<< std::endl;
     //   sleep(1);
      }
 }
