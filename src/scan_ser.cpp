@@ -17,8 +17,8 @@
 
 struct scan_data
 {
-  std::string  frame_id;
-//   char frame_id;
+ // std::string  frame_id;
+   char frame_id;
   float angle_min;       
   float angle_max;        
   float angle_increment;  
@@ -34,7 +34,6 @@ struct scan_data
 void handle_udp_msg(int fd)
 {
     char buf[BUFF_LEN] = {0};  //接收缓冲区，1024字节
-   // std::string buf;
     socklen_t len;
     int count;
     struct sockaddr_in clent_addr;  //clent_addr用于记录发送方的地址信息
