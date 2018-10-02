@@ -6,8 +6,8 @@
 
  struct scan_data
 {
-   std::string  frame_id;
-  //  char frame_id;
+//   std::string  frame_id;
+    char frame_id;
     float  angle_min;       
     float angle_max;        
     float angle_increment;  
