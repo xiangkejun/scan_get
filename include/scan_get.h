@@ -4,19 +4,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct scan_data
+ struct scan_data
 {
-char  frame_id[10];
+//char  frame_id[20];
 float  angle_min;       
  float angle_max;        
-// float angle_increment;  
-// float time_increment;                                                  
-// float scan_time;       
-// float range_min;      
-// float range_max; 
-};      
+ float angle_increment;  
+ float time_increment;                                                  
+ float scan_time;       
+ float range_min;      
+ float range_max; 
+};     
+ 
+ struct scan_data scan_data_buf;
 
-scan_data scan_data_buf;
+
 
  //  scan_data scan_data_buf={"hokuyo",123.0,345.897};
 
