@@ -18,18 +18,18 @@
 struct scan_data
 {
 
-char  frame_id[10];
+//char  frame_id[10];
 float   angle_min;       
  float angle_max;        
-// float angle_increment;  
-// float time_increment;                                                  
-// float scan_time;       
-// float range_min;      
-// float range_max; 
+ float angle_increment;  
+ float time_increment;                                                  
+ float scan_time;       
+  float range_min;      
+ float range_max; 
 };
 
 
-#define BUFF_LEN 100
+#define BUFF_LEN 1000
 
 // void handle_udp_msg(int fd)
 // {
@@ -80,9 +80,7 @@ void handle_udp_msg(int fd)
        struct scan_data scan_data_buf;
         memcpy(&scan_data_buf,buf,sizeof(scan_data_buf)+1);
 
-        std::cout<< "scan_data_buf:     " << scan_data_buf.frame_id <<scan_data_buf.angle_min;
-        std::cout<<scan_data_buf.angle_max<< std::endl;
-  //  std::cout<<scan_data_buf.angle_max<<"  "<<scan_data_buf.scan_time<<std::endl;
+        std::cout<< "scan_data_buf:   "  <<scan_data_buf.angle_min<<"  "<<scan_data_buf.angle_max<<"   "<<scan_data_buf.scan_time<< std::endl;
 
        // memset(buf, 0, BUFF_LEN);
        // sprintf(buf, "I have recieved %d bytes data!\n", count);  //回复client
@@ -96,7 +94,7 @@ void handle_udp_msg(int fd)
 int main(int argc, char **argv)
 {
 
-  ros::init(argc, argv, "scan_data_ser");
+  ros::init(argc, argv, "scan_ser");
   ros::NodeHandle n;
  // ros::Subscriber sub = n.subscribe("scan", 1, scan_callback);
 
