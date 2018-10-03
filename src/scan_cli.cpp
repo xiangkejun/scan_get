@@ -1,3 +1,6 @@
+//xx
+//实现laserscan数据读取并在udp下以结构体的形式发送出去
+
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 
