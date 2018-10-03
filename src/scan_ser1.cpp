@@ -33,15 +33,16 @@ struct scan_data
 };
 
 struct scan_data scan_data_buf;
-ros::Publisher scan_pub;
-ros::Time current_time;
 sensor_msgs::LaserScan  scan_msg;
 
 #define BUFF_LEN 4096
 
 void *pub_scan_msg(void *arg)
 {  
-    //ros::NodeHandle n1;
+    ros::Time current_time;
+    ros::NodeHandle n;
+    ros::Publisher scan_pub;
+    scan_pub = n.advertise<sensor_msgs::LaserScan>("scan1",100);
     while(ros::ok())
     {
     current_time = ros::Time::now();
@@ -55,16 +56,16 @@ void *pub_scan_msg(void *arg)
     // scan_msg.range_min = scan_data_buf.range_min;
     // scan_msg.range_max = scan_data_buf.range_max;
 
-    scan_msg.angle_min = 1;
-    scan_msg.angle_max = 2;
-    scan_msg.angle_increment = 3;
-    scan_msg.time_increment = 4;
-    scan_msg.scan_time = 5;
-    scan_msg.range_min = 6;
-    scan_msg.range_max = 7;
+    // scan_msg.angle_min = 1;
+    // scan_msg.angle_max = 2;
+    // scan_msg.angle_increment = 3;
+    // scan_msg.time_increment = 4;
+    // scan_msg.scan_time = 5;
+    // scan_msg.range_min = 6;
+    // scan_msg.range_max = 7;
    // std::copy(scan_data_buf.ranges.begin(), scan_data_buf.ranges.end(),scan_msg.ranges)
-    scan_msg.ranges ={0};
-    scan_msg.intensities = {0};
+    scan_msg.ranges ={1};
+    scan_msg.intensities = {2};
     scan_pub.publish(scan_msg);
 
     }
@@ -113,6 +114,14 @@ void *scan_get( void *arg )
    //    std::cout<<"scan_data_buf:   "<<scan_data_buf.frame_id;
         std::cout<<scan_data_buf.ranges[0]<<"  "<<scan_data_buf.intensities[0]<< std::endl;
 
+        scan_msg.angle_min = scan_data_buf.angle_min;
+        scan_msg.angle_max = scan_data_buf.angle_max;
+        scan_msg.angle_increment = scan_data_buf.angle_increment;
+        scan_msg.time_increment = scan_data_buf.time_increment;
+        scan_msg.scan_time = scan_data_buf.scan_time;
+        scan_msg.range_min = scan_data_buf.range_min;
+        scan_msg.range_max = scan_data_buf.range_max;
+      //  scan_msg.ranges[0] = scan_data_buf.ranges[0];
     }
 }
 
@@ -125,11 +134,11 @@ void create_all_thread(void)
 		perror("Create the thread_joy fail");
 		exit( 1 );
 	}
-    // if( (pthread_create( &thread_pub_scan , NULL , pub_scan_msg, NULL )) != 0 )
-	// {
-	// 	perror("Create the thread_joy fail");
-	// 	exit( 1 );
-	// }
+    if( (pthread_create( &thread_pub_scan , NULL , pub_scan_msg, NULL )) != 0 )
+	{
+		perror("Create the thread_joy fail");
+		exit( 1 );
+	}
 
 }
 
@@ -138,42 +147,14 @@ int main(int argc, char **argv)
 {
 
   ros::init(argc, argv, "scan_ser1");
-  ros::NodeHandle n;
-  //  create_all_thread();
+  //ros::NodeHandle n;
+    create_all_thread();
   //ros::Subscriber sub = n.subscribe("scan", 1, scan_callback);
-  scan_pub = n.advertise<sensor_msgs::LaserScan>("scan1",100);
   //scan_pub.publish(scan_msg);
-     ros::Rate loop_rate(10);
+  //   ros::Rate loop_rate(10);
 
-   current_time = ros::Time::now();
-    scan_msg.header.stamp = current_time;
-    scan_msg.header.frame_id = "hokuyo";
-    // scan_msg.angle_min = scan_data_buf.angle_min;
-    // scan_msg.angle_max = scan_data_buf.angle_max;
-    // scan_msg.angle_increment = scan_data_buf.angle_increment;
-    // scan_msg.time_increment = scan_data_buf.time_increment;
-    // scan_msg.scan_time = scan_data_buf.scan_time;
-    // scan_msg.range_min = scan_data_buf.range_min;
-    // scan_msg.range_max = scan_data_buf.range_max;
-
-    scan_msg.angle_min = 1;
-    scan_msg.angle_max = 2;
-    scan_msg.angle_increment = 3;
-    scan_msg.time_increment = 4;
-    scan_msg.scan_time = 5;
-    scan_msg.range_min = 6;
-    scan_msg.range_max = 7;
-   // std::copy(scan_data_buf.ranges.begin(), scan_data_buf.ranges.end(),scan_msg.ranges)
-    scan_msg.ranges ={0};
-    scan_msg.intensities = {0};
-    while(ros::ok())
-    {
-        scan_pub.publish(scan_msg);
-
-    }
-
-
-   create_all_thread();
+ 
+  // create_all_thread();
   ros::spin();
   //ros::spinOnce();
 
