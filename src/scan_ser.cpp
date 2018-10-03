@@ -26,8 +26,8 @@ struct scan_data
   float scan_time;       
   float range_min;      
   float range_max; 
-  float ranges[900];
-  float intensities[900];
+  float ranges[897];
+  float intensities[897];
 };
 
 
