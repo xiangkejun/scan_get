@@ -4,4 +4,4 @@ roscore
 
 rosrun scan_get scan_cli
 
-rosrun laser_transfer scan_ser
+rosrun scan_get scan_ser
