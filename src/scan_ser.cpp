@@ -17,7 +17,7 @@
 
 struct scan_data
 {
- // std::string  frame_id;   //会出现段错误
+ // std::string  frame_id;
    char frame_id[10];
   float angle_min;       
   float angle_max;        
@@ -26,10 +26,12 @@ struct scan_data
   float scan_time;       
   float range_min;      
   float range_max; 
+  float ranges[900];
+  float intensities[900];
 };
 
 
-#define BUFF_LEN 1024
+#define BUFF_LEN 4096
 
 void handle_udp_msg(int fd)
 {
@@ -42,8 +44,7 @@ void handle_udp_msg(int fd)
     {
       //  memset(buf, 0, BUFF_LEN);
         len = sizeof(clent_addr);
-        std::cout<< "servier///1111111111111" << std::endl;
-
+       
         count = recvfrom(fd, buf, BUFF_LEN, 0, (struct sockaddr*)&clent_addr, &len);  //recvfrom是拥塞函数，没有数据就一直拥塞
         if(count == -1)
         {
@@ -54,9 +55,9 @@ void handle_udp_msg(int fd)
      
        struct scan_data scan_data_buf;
         memcpy(&scan_data_buf,buf,sizeof(scan_data_buf)+1);
-       std::cout<<"scan_data_buf:   "<<scan_data_buf.frame_id;
-        std::cout<<scan_data_buf.angle_min<<"  "<<scan_data_buf.angle_max<<"   "<<scan_data_buf.scan_time<< std::endl;
-
+  //     std::cout<<"scan_data_buf:   "<<scan_data_buf.frame_id;
+  //      std::cout<<scan_data_buf.angle_min<<"  "<<scan_data_buf.angle_max<<"   "<<scan_data_buf.scan_time<< std::endl;
+        std::cout<<scan_data_buf.ranges[0]<<"  "<<scan_data_buf.intensities[1]<< std::endl;
        // memset(buf, 0, BUFF_LEN);
        // sprintf(buf, "I have recieved %d bytes data!\n", count);  //回复client
        // printf("server:%s\n",buf);  //打印自己发送的信息给
