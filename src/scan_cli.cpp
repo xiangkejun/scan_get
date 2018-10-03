@@ -6,6 +6,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
+#include <cstring>
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -25,9 +26,7 @@ struct sockaddr_in ser_addr;
  {
      strcpy(scan_data_buf.frame_id,(scan->header.frame_id).c_str());
 
-     
    //  scan_data_buf.frame_id = 65;  //'A'
-
     //   scan_data_buf.frame_id = scan->header.frame_id;
 
       scan_data_buf.angle_min = scan ->angle_min;
@@ -37,11 +36,21 @@ struct sockaddr_in ser_addr;
      scan_data_buf.scan_time = scan ->scan_time;
      scan_data_buf.range_min = scan ->range_min;
      scan_data_buf.range_max = scan ->range_max;
+   //  scan_data_buf.ranges = scan ->ranges;
+      // for(int i=0; i< scan->ranges.size(); i++)
+      // {
+      //   scan_data_buf.ranges[i] = scan ->ranges[i];
+      // }
+      // for(int i=0; i< scan->intensities.size(); i++)
+      // {
+      //   scan_data_buf.intensities[i] = scan ->intensities[i];
+      // }
 
-
-; 
-  //   std::cout<<scan->angle_min << scan->angle_max<< std::endl;
-
+  // memcpy(scan_data_buf.ranges, scan->ranges, scan->ranges.size());
+    std::copy(scan->ranges.begin(),scan->ranges.end(), scan_data_buf.ranges);
+    std::copy(scan->intensities.begin(),scan->intensities.end(),scan_data_buf.intensities);
+ //    std::cout<<scan->ranges.size()<< std::endl;     //897
+  // std::cout<<scan->intensities.size()<<std::endl;    // 897
 //  // ROS_INFO("I heard: [%s]", msg->data.c_str());
 //  sleep(1);
  }
@@ -63,12 +72,13 @@ void *scan_get( void *arg )
   //  close(client_fd);
   while(ros::ok())
       {
-        std::cout<<".....pppppppppppppppp..."<<scan_data_buf.frame_id<<"  "<<scan_data_buf.angle_min ;
-        std::cout<<"   "<<scan_data_buf.angle_max<< "  "<< scan_data_buf.scan_time<<std::endl;
+     //   std::cout<<".....pppppppppppppppp..."<<scan_data_buf.frame_id<<"  "<<scan_data_buf.angle_min ;
+    //    std::cout<<"   "<<scan_data_buf.angle_max<< "  "<< scan_data_buf.scan_time<<std::endl;
+      std::cout<<scan_data_buf.ranges[0]<<"  "<<scan_data_buf.intensities[0]<<std::endl; 
   sendto(client_fd, (char *)&scan_data_buf, sizeof(scan_data_buf)+1,0,(struct sockaddr*)&ser_addr,sizeof(ser_addr));
  // sendto(client_fd, (std::string *)&scan_data_buf, sizeof(scan_data_buf)+1,0,(struct sockaddr*)&ser_addr,sizeof(ser_addr));
 
-      std::cout<<"sizeof"<< sizeof(scan_data_buf)+1<< std::endl;
+//      std::cout<<"sizeof"<< sizeof(scan_data_buf)+1<< std::endl;
     //   sleep(1);
      }
 }
