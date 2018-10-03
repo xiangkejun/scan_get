@@ -64,7 +64,7 @@ void *pub_scan_msg(void *arg)
     // scan_msg.range_min = 6;
     // scan_msg.range_max = 7;
    // std::copy(scan_data_buf.ranges.begin(), scan_data_buf.ranges.end(),scan_msg.ranges)
-    scan_msg.ranges ={1};
+   // scan_msg.ranges ={1,2};
     scan_msg.intensities = {2};
     scan_pub.publish(scan_msg);
 
@@ -112,8 +112,9 @@ void *scan_get( void *arg )
         }     
         memcpy(&scan_data_buf,buf,sizeof(scan_data_buf)+1);
    //    std::cout<<"scan_data_buf:   "<<scan_data_buf.frame_id;
-        std::cout<<scan_data_buf.ranges[0]<<"  "<<scan_data_buf.intensities[0]<< std::endl;
-
+         std::cout<<scan_data_buf.ranges[0]<<"  ";
+        std::cout<<scan_data_buf.ranges[896]<<"  "<<scan_data_buf.intensities[0]<< std::endl;
+    //     std::cout << scan_msg.ranges.size() << std::endl;
         scan_msg.angle_min = scan_data_buf.angle_min;
         scan_msg.angle_max = scan_data_buf.angle_max;
         scan_msg.angle_increment = scan_data_buf.angle_increment;
@@ -121,7 +122,11 @@ void *scan_get( void *arg )
         scan_msg.scan_time = scan_data_buf.scan_time;
         scan_msg.range_min = scan_data_buf.range_min;
         scan_msg.range_max = scan_data_buf.range_max;
-      //  scan_msg.ranges[0] = scan_data_buf.ranges[0];
+       // scan_msg.ranges ={1,2,4};
+
+        scan_msg.ranges ={scan_data_buf.ranges[0],scan_data_buf.ranges[1]};
+
+
     }
 }
 
