@@ -1,4 +1,6 @@
 //xx
+// 两个进程 1.实现udp下激光数据接受
+//2.对接受到的数据进行封装以 “/scan1”形式发布
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
