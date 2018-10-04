@@ -233,5 +233,10 @@ target_link_libraries(scan_cli ${catkin_LIBRARIES})
 add_executable(scan_ser src/scan_ser.cpp)
 target_link_libraries(scan_ser ${catkin_LIBRARIES})
 
+add_executable(scan_ser1 src/scan_ser1.cpp)
+target_link_libraries(scan_ser1 ${catkin_LIBRARIES})
 
+
+add_executable(scan_ser2 src/scan_ser2.cpp)
+target_link_libraries(scan_ser2 ${catkin_LIBRARIES})
 
