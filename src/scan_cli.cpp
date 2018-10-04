@@ -1,4 +1,4 @@
-//xx
+//xx  2018-10-04
 //实现laserscan数据读取并在udp下以结构体的形式发送出去
 
 #include "ros/ros.h"
