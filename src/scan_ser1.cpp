@@ -37,7 +37,6 @@ struct scan_data scan_data_buf;
 sensor_msgs::LaserScan  scan_msg;
 
 #define BUFF_LEN 4096
-float ranges_xx[897]= {0};
 void *pub_scan_msg(void *arg)
 {  
     ros::Time current_time;
@@ -123,20 +122,18 @@ void *scan_get( void *arg )
         scan_msg.scan_time = scan_data_buf.scan_time;
         scan_msg.range_min = scan_data_buf.range_min;
         scan_msg.range_max = scan_data_buf.range_max;
-       // scan_msg.ranges ={1,2,4};
-    //    memcpy(&scan_msg.ranges,scan_data_buf.ranges,896);
-      //  std::copy(scan_data_buf.ranges.begin(), scan_data_buf.ranges.end(),&scan_msg.ranges)
-    //  for(int i=0; i<8;i++)
-    //  {
-     //  scan_msg.ranges.push_back(scan_data_buf.ranges[0]);   //Add  ,fill
-     //  usleep(100000);
-   //   }
-    //    scan_msg.ranges.clear();
-
-     //   scan_msg.ranges(scan_data_buf.ranges.begin(),scan_data_buf.ranges.end());
+       scan_msg.ranges.resize(897);
+       for(int i=0;i<897; i++)
+       {
+           scan_msg.ranges[i] = scan_data_buf.ranges[i];
+       }
+       scan_msg.intensities.resize(897);
+       for(int i=0;i<897;i++)
+       {
+           scan_msg.intensities[i] = scan_data_buf.intensities[i];
+       }
        // scan_msg.ranges ={scan_data_buf.ranges[0],scan_data_buf.ranges[1]};
-      // scan_msg.ranges = ranges_xx[897];
-        scan_msg.intensities = {scan_data_buf.intensities[0],scan_data_buf.intensities[1]};
+      //  scan_msg.intensities = {scan_data_buf.intensities[0],scan_data_buf.intensities[1]};
     }
 }
 
