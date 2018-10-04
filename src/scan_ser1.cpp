@@ -163,15 +163,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "scan_ser1");
   //ros::NodeHandle n;
     create_all_thread();
-  //ros::Subscriber sub = n.subscribe("scan", 1, scan_callback);
-  //scan_pub.publish(scan_msg);
   //   ros::Rate loop_rate(10);
-
- 
-  // create_all_thread();
   ros::spin();
-  //ros::spinOnce();
-
-
   return 0;
 }
